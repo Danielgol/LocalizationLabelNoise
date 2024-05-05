@@ -26,7 +26,7 @@ from utils.utils import UBBR_create_target_boxes
 # Length: trainval:  11540
 
 VOC_CLASSES = (
-    "bg",  # background at index 0
+    #"bg",  # background at index 0
     "aeroplane",
     "bicycle",
     "bird",
@@ -53,7 +53,7 @@ VOC_CLASSES = (
 VOC_CLASS_TO_INDEX = {class_name: i for i, class_name in enumerate(VOC_CLASSES)}
 
 # names of VOC object classes, i.e. all non-background classes
-VOC_OBJECT_CLASS_NAMES = VOC_CLASSES[1:]
+#VOC_OBJECT_CLASS_NAMES = VOC_CLASSES[1:]
 
 
 class VOCAnnotationTransform(object):
@@ -106,9 +106,9 @@ class VOCAnnotationTransform(object):
         scaleWidth = (self.width - 1) / (int(target["annotation"]["size"]["width"]) - 1)
         scaleHeight = (self.height - 1) / (int(target["annotation"]["size"]["height"]) - 1)
         for obj in target["annotation"]["object"].__iter__():
-            difficult = int(obj["difficult"]) == 1
-            if not self.keep_difficult and difficult:
-                continue
+            #difficult = int(obj["difficult"]) == 1
+            #if not self.keep_difficult and difficult:
+            #    continue
             name = obj["name"].lower().strip()
             bbox = obj["bndbox"]
 
@@ -283,6 +283,15 @@ class VOCLoader(torch.utils.data.Dataset):
                 target_org = self.box_mirror(target_org)
         image = transforms.ToTensor()(image).type(torch.float32)
         image = transforms.Normalize(self.mean, self.std)(image)
+
+        if len(target) == 0:
+            sampleDict["boxes"] = torch.tensor([[]], dtype=torch.float32)
+            sampleDict["labels"] = torch.tensor([[]], dtype=torch.int32)
+            sampleDict["falseBoxes"] = torch.tensor([[]], dtype=torch.float32)
+            sampleDict["GTBoxes"] = torch.tensor([[]], dtype=torch.float32)
+            sampleDict["GTClass"] = torch.tensor([[]], dtype=torch.int32)
+            return image, sampleDict
+
         targetTensor = torch.tensor(target)
         sampleDict["boxes"] = torch.tensor(targetTensor[:, :4], dtype=torch.float32)
         sampleDict["labels"] = torch.tensor(targetTensor[:, 4], dtype=torch.int32)
