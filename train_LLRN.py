@@ -280,8 +280,8 @@ def main():
         random_sampler=1,
     )
 
-    #train_voc_loader = FilterSet([data for data in train_voc_loader if data[1]])
-    #val_voc_loader = FilterSet([data for data in val_voc_loader if data[1]])
+    train_voc_loader = FilterSet([data for data in train_voc_loader if data[1]])
+    val_voc_loader = FilterSet([data for data in val_voc_loader if data[1]])
     print(len(val_voc_loader))
     count = 0
     for elem in val_voc_loader:
