@@ -281,16 +281,14 @@ def main():
     )
 
     train_voc_loader = FilterSet([data for data in train_voc_loader if data[1]])
-    #val_voc_loader = FilterSet([data for data in val_voc_loader if data[1]])
-    print(len(val_voc_loader))
-    count = 0
-    for elem in val_voc_loader:
-        print(elem)
-        count += 1
-        if count == 10:
-            break
-    
-    print("ARGABLASQUE")
+    val_voc_loader = FilterSet([data for data in val_voc_loader if data[1]])
+    # print(len(val_voc_loader))
+    # count = 0
+    # for elem in val_voc_loader:
+    #     print(elem)
+    #     count += 1
+    #     if count == 10:
+    #         break
 
     train_data_loader = torch.utils.data.DataLoader(
         train_voc_loader,
@@ -309,7 +307,7 @@ def main():
         prefetch_factor=2,
     )
 
-    # initialize the training parameters
+    initialize the training parameters
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate)
     scheduler = ReduceLROnPlateau(optimizer=optimizer, patience=3, verbose=True, cooldown=2)
     if args.outputs_dir is None:

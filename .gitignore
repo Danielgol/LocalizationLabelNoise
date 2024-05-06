@@ -168,3 +168,6 @@ iou_eval_table.txt
 # datasets
 VOCdevkit/**
 work_dirs
+
+# Daniel Codes
+loadvoc.py
