@@ -284,13 +284,13 @@ class VOCLoader(torch.utils.data.Dataset):
         image = transforms.ToTensor()(image).type(torch.float32)
         image = transforms.Normalize(self.mean, self.std)(image)
 
-        if len(target) == 0:
-            sampleDict["boxes"] = torch.tensor([[]], dtype=torch.float32)
-            sampleDict["labels"] = torch.tensor([[]], dtype=torch.int32)
-            sampleDict["falseBoxes"] = torch.tensor([[]], dtype=torch.float32)
-            sampleDict["GTBoxes"] = torch.tensor([[]], dtype=torch.float32)
-            sampleDict["GTClass"] = torch.tensor([[]], dtype=torch.int32)
-            return image, sampleDict
+        # if len(target) == 0:
+        #     sampleDict["boxes"] = torch.tensor([[]], dtype=torch.float32)
+        #     sampleDict["labels"] = torch.tensor([[]], dtype=torch.int32)
+        #     sampleDict["falseBoxes"] = torch.tensor([[]], dtype=torch.float32)
+        #     sampleDict["GTBoxes"] = torch.tensor([[]], dtype=torch.float32)
+        #     sampleDict["GTClass"] = torch.tensor([[]], dtype=torch.int32)
+        #     return image, sampleDict
 
         targetTensor = torch.tensor(target)
         sampleDict["boxes"] = torch.tensor(targetTensor[:, :4], dtype=torch.float32)
@@ -533,3 +533,14 @@ class VOCLoader(torch.utils.data.Dataset):
 
     def __len__(self):
         return len(self.DataGenerator)
+
+
+class FilterSet(torch.utils.data.Dataset):
+    def __init__(self, data):
+        self.data = data
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        return self.data[idx]

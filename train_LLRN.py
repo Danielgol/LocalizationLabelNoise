@@ -11,7 +11,7 @@ from torch.optim.lr_scheduler import ReduceLROnPlateau
 from torch.utils.tensorboard import SummaryWriter
 
 from loaders.cascade_roi import CascadeHead, FasterRCNN, IterModel
-from loaders.dataloader import VOCAnnotationTransform, VOCLoader
+from loaders.dataloader import VOCAnnotationTransform, VOCLoader, FilterSet
 from utils.eval_utils import box_iou
 from utils.misc_utils import add_dict, make_histogram, print_dict
 from utils.utils import (
@@ -279,6 +279,10 @@ def main():
         boxErrorPercentage=args.box_error_percentage,
         random_sampler=1,
     )
+
+    train_voc_loader = FilterSet([data for data in train_voc_loader if data[1]])
+    val_voc_loader = FilterSet([data for data in val_voc_loader if data[1]])
+
     train_data_loader = torch.utils.data.DataLoader(
         train_voc_loader,
         batch_size=args.batch_size,
