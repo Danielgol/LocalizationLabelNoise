@@ -283,12 +283,12 @@ def main():
     train_voc_loader = FilterSet([data for data in train_voc_loader if data[1]])
     # val_voc_loader = FilterSet([data for data in val_voc_loader if data[1]])
     print(len(val_voc_loader))
-    # count = 0
-    # for elem in val_voc_loader:
-    #     print(elem)
-    #     count += 1
-    #     if count == 10:
-    #         break
+    count = 0
+    for elem in val_voc_loader:
+        print(elem)
+        count += 1
+        if count == 10:
+            break
 
     train_data_loader = torch.utils.data.DataLoader(
         train_voc_loader,
