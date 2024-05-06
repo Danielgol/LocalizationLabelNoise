@@ -535,6 +535,7 @@ class VOCLoader(torch.utils.data.Dataset):
         return len(self.DataGenerator)
 
 
+
 class FilterSet(torch.utils.data.Dataset):
     def __init__(self, data):
         self.data = data
