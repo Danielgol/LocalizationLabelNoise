@@ -307,7 +307,7 @@ def main():
         prefetch_factor=2,
     )
 
-    initialize the training parameters
+    # initialize the training parameters
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate)
     scheduler = ReduceLROnPlateau(optimizer=optimizer, patience=3, verbose=True, cooldown=2)
     if args.outputs_dir is None:
