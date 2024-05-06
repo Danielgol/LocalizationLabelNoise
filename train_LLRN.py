@@ -289,6 +289,8 @@ def main():
         count += 1
         if count == 10:
             break
+    
+    print("ARGABLASQUE")
 
     train_data_loader = torch.utils.data.DataLoader(
         train_voc_loader,
