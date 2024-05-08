@@ -425,10 +425,12 @@ def main():
         for stage in range(args.num_stages):
             writer.add_scalar(f"Loss/val stage {stage}", mean_stage_loss[stage], epoch)
             writer.add_scalar(f"IoU/val stage {stage}", mean_stage_iou[stage], epoch)
-        torch.save(
-            model.state_dict(),
-            output_directory + f"/{epoch}_val_loss_{epoch_loss:0.4f}.pth",
-        )
+
+        if (epoch > 35 and epoch < 39) or (epoch > 95):
+            torch.save(
+                model.state_dict(),
+                output_directory + f"/{epoch}_val_loss_{epoch_loss:0.4f}.pth",
+            )
 
     train_bar.close()
     val_bar.close()
