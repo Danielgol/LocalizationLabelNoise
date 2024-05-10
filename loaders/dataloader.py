@@ -53,7 +53,7 @@ VOC_CLASSES = (
 VOC_CLASS_TO_INDEX = {class_name: i for i, class_name in enumerate(VOC_CLASSES)}
 
 # names of VOC object classes, i.e. all non-background classes
-#VOC_OBJECT_CLASS_NAMES = VOC_CLASSES[1:]
+VOC_OBJECT_CLASS_NAMES = VOC_CLASSES #[1:]
 
 
 class VOCAnnotationTransform(object):
