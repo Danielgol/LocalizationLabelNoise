@@ -426,7 +426,7 @@ def main():
             writer.add_scalar(f"Loss/val stage {stage}", mean_stage_loss[stage], epoch)
             writer.add_scalar(f"IoU/val stage {stage}", mean_stage_iou[stage], epoch)
 
-        if (epoch > 35 and epoch < 39) or (epoch > 95):
+        if (epoch > 33 and epoch < 39) or (epoch > 95):
             torch.save(
                 model.state_dict(),
                 output_directory + f"/{epoch}_val_loss_{epoch_loss:0.4f}.pth",
